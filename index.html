@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assignment 6 - jQuery Portfolio</title>
+  
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+  <style>
+    :root {
+      --bg-color: white;
+      --text-color: black;
+      --card-bg: white;
+      --accent-color: darkorange;
+      --border-color: white;
+    }
+
+    body.dark-theme {
+      --bg-color: black;
+      --text-color: white;
+      --card-bg: darkgrey;
+      --accent-color: darkorange;
+      --border-color: darkgrey;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 20px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    header, section {
+      background: var(--card-bg);
+      padding: 25px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
+
+    button {
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      margin: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: opacity 0.2s;
+    }
+
+    button:hover {
+      opacity: 0.85;
+    }
+
+    .gallery {
+      display: flex;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .gallery img {
+      width: 200px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 2px solid var(--border-color);
+    }
+
+    .accordion-header {
+      background-color: var(--accent-color);
+      color: white;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .accordion-panel {
+      display: none;
+      padding: 15px;
+      background-color: var(--bg-color);
+      border: 1px solid var(--border-color);
+      border-top: none;
+      border-radius: 0 0 4px 4px;
+    }
+
+    .skill-container {
+      margin-bottom: 15px;
+    }
+
+    .skill-bar-bg {
+      background-color: var(--border-color);
+      border-radius: 20px;
+      overflow: hidden;
+      height: 20px;
+    }
+
+    .skill-bar-fill {
+      height: 100%;
+      background-color: var(--accent-color);
+      width: 0%; 
+    }
+
+    input[type="text"], input[type="email"] {
+      padding: 8px;
+      margin: 5px 0;
+      width: calc(100% - 20px);
+      border: 1px solid var(--border-color);
+      background: var(--card-bg);
+      color: var(--text-color);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <header id="main-header">
+      <h1 id="portfolio-title">Welcome to My Portfolio</h1>
+      <h2 id="personal-headline">Frontend Developer & Student</h2>
+      <p id="personal-intro">Hello! I am excited to showcase dynamic interactions built with jQuery.</p>
+      
+      <button id="btn-theme-light">Light Mode</button>
+      <button id="btn-theme-dark">Dark Mode</button>
+      <button id="btn-update-headline">Update Headline dynamically</button>
+    </header>
+
+    <section id="about-section">
+      <h2>About Me</h2>
+      <p id="bio">I specialize in software engineering, computing architectures, and web development.</p>
+      <p id="status-message" style="font-weight: bold; color: var(--accent-color);">Currently learning jQuery!</p>
+      
+      <div id="fun-facts">
+        <h4>Fun Facts:</h4>
+        <ul>
+          <li>Passionate about arm wrestling and conditioning routines.</li>
+          <li>Enjoys custom PC hardware building and low-level system design.</li>
+        </ul>
+      </div>
+
+      <button id="btn-hide">Hide Status & Facts</button>
+      <button id="btn-show">Show Status & Facts</button>
+      <button id="btn-toggle">Toggle Visibility</button>
+    </section>
+
+    <section id="gallery-section">
+      <h2>Photo Gallery (Fade Effects)</h2>
+      <div class="gallery">
+        <img class="fade-img" src="C:\Users\Acer\Pictures\Новая папка\WhatsApp Image 2026-11-01 at 16.19.13.jpeg" alt="project 1">
+        <img class="fade-img" src="C:\Users\Acer\Pictures\Новая папка\WhatsApp Image 2026-11-01 at 16.19.14.jpeg" alt="Hobby">
+      </div>
+      <br>
+      <button id="btn-fade-out">Fade Out</button>
+      <button id="btn-fade-in">Fade In</button>
+      <button id="btn-fade-toggle">Fade Toggle</button>
+    </section>
+
+    <section id="collapsible-section">
+      <h2>Collapsible Panels (Slide Effects)</h2>
+
+      <div class="accordion-header">My Favorite Music</div>
+      <div class="accordion-panel">
+        <p>I enjoy classical compositions, ambient instrumental tracks, and modern synth wave.</p>
+      </div>
+
+      <div class="accordion-header">My Favorite Movie</div>
+      <div class="accordion-panel">
+        <p>Short minimal cinema productions, sci-fi mind-benders, and thought-provoking indie films.</p>
+      </div>
+
+      <div class="accordion-header">My Favorite Subject</div>
+      <div class="accordion-panel">
+        <p>Data structures, low-level computer architecture, and front-end engineering frameworks.</p>
+      </div>
+    </section>
+
+    <section id="skills-and-dom">
+      <h2>Skills & DOM Manipulation</h2>
+
+      <h3>Technical Skills</h3>
+      <ul id="skill-list">
+        <li>HTML5 & CSS3</li>
+        <li>JavaScript (ES6+)</li>
+        <li>C# & .NET</li>
+        <li>PostgreSQL</li>
+      </ul>
+
+      <input type="text" id="skill-input" placeholder="Enter a new skill...">
+      <br>
+      <button id="btn-append">Add Skill (Append)</button>
+      <button id="btn-prepend">Prepend Skill</button>
+      <button id="btn-remove-last">Remove Last Skill</button>
+
+      <hr style="margin: 20px 0; border: 0; border-top: 1px solid var(--border-color);">
+
+      <h3>Skill Proficiency Levels (Animations)</h3>
+      <button id="btn-animate-skills">Animate My Skills</button>
+      
+      <div class="skill-container" style="margin-top: 15px;">
+        <label>HTML / CSS</label>
+        <div class="skill-bar-bg">
+          <div class="skill-bar-fill" data-target="90%"></div>
+        </div>
+      </div>
+      
+      <div class="skill-container">
+        <label>C# Programming</label>
+        <div class="skill-bar-bg">
+          <div class="skill-bar-fill" data-target="80%"></div>
+        </div>
+      </div>
+      
+      <div class="skill-container">
+        <label>jQuery & DOM</label>
+        <div class="skill-bar-bg">
+          <div class="skill-bar-fill" data-target="75%"></div>
+        </div>
+      </div>
+
+      <hr style="margin: 20px 0; border: 0; border-top: 1px solid var(--border-color);">
+
+      <h3>Connect with Me</h3>
+      <p>Current Link Destination: <a id="social-link" href="https://google.com" target="_blank">Visit Website</a></p>
+      <button id="btn-change-attr">Change Link to GitHub</button>
+
+      <hr style="margin: 20px 0; border: 0; border-top: 1px solid var(--border-color);">
+
+      <h3>Live Input Form</h3>
+      <form id="user-form" onsubmit="return false;">
+        <div>
+          <label>Name:</label>
+          <input type="text" id="form-name" placeholder="Enter your name">
+        </div>
+        <div>
+          <label>Email:</label>
+          <input type="email" id="form-email" placeholder="Enter your email">
+        </div>
+      </form>
+      <div style="margin-top: 15px; padding: 10px; background: var(--bg-color); border-radius: 4px;">
+        <p><strong>Live Output:</strong></p>
+        <p>Name: <span id="live-name">---</span></p>
+        <p>Email: <span id="live-email">---</span></p>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      // Task 0: Console Test
+      console.log("jQuery is ready!");
+
+      $("#btn-update-headline").click(function() {
+        $("#personal-headline").html("Updated via <code>.html()</code> Method!");
+        $("#personal-intro").text("This introduction text was updated dynamically using .text()!");
+      });
+
+      $("#btn-theme-dark").click(function() {
+        $("body").addClass("dark-theme");
+      });
+
+      $("#btn-theme-light").click(function() {
+        $("body").removeClass("dark-theme");
+      });
+
+      $("#btn-hide").click(function() {
+        $("#status-message, #fun-facts").hide();
+      });
+
+      $("#btn-show").click(function() {
+        $("#status-message, #fun-facts").show();
+      });
+
+      $("#btn-toggle").click(function() {
+        $("#status-message, #fun-facts").toggle();
+      });
+
+      $("#btn-fade-out").click(function() {
+        $(".fade-img").fadeOut();
+      });
+
+      $("#btn-fade-in").click(function() {
+        $(".fade-img").fadeIn();
+      });
+
+      $("#btn-fade-toggle").click(function() {
+        $(".fade-img").fadeToggle();
+      });
+
+      $(".accordion-header").click(function() {
+        $(this).next(".accordion-panel").slideToggle();
+      });
+
+      $("#btn-append").click(function() {
+        let skillValue = $("#skill-input").val().trim();
+        if(skillValue !== "") {
+          $("#skill-list").append("<li>" + skillValue + "</li>");
+          $("#skill-input").val("");
+        } else {
+          alert("Please enter a valid skill name!");
+        }
+      });
+
+      $("#btn-prepend").click(function() {
+        let skillValue = $("#skill-input").val().trim();
+        if(skillValue !== "") {
+          $("#skill-list").prepend("<li>" + skillValue + "</li>");
+          $("#skill-input").val("");
+        } else {
+          alert("Please enter a valid skill name!");
+        }
+      });
+
+      $("#btn-remove-last").click(function() {
+        $("#skill-list li:last-child").remove();
+      });
+
+      $("#btn-change-attr").click(function() {
+        $("#social-link")
+          .attr("href", "https://github.com")
+          .text("Go to GitHub Profile");
+      });
+
+      $("#form-name").on("keyup change", function() {
+        let nameVal = $(this).val();
+        $("#live-name").text(nameVal !== "" ? nameVal : "---");
+      });
+
+      $("#form-email").on("keyup change", function() {
+        let emailVal = $(this).val();
+        $("#live-email").text(emailVal !== "" ? emailVal : "---");
+      });
+
+      let isAnimated = false;
+      $("#btn-animate-skills").click(function() {
+        if (!isAnimated) {
+          $(".skill-bar-fill").each(function() {
+            let targetWidth = $(this).attr("data-target");
+            $(this).animate({ width: targetWidth }, 1000);
+          });
+          isAnimated = true;
+        } else {
+          $(".skill-bar-fill").animate({ width: "0%" }, 1000);
+          isAnimated = false;
+        }
+      });
+
+    });
+  </script>
+</body>
+</html>
